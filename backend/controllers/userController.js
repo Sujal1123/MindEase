@@ -44,7 +44,6 @@ exports.getMyPatients = async (req, res) => {
     });
 
     const patientIds = new Set();
-
     for (const msg of messages) {
       if (msg.senderId.toString() !== psychiatristId) {
         patientIds.add(msg.senderId.toString());
@@ -56,7 +55,16 @@ exports.getMyPatients = async (req, res) => {
 
     const patients = await User.find({ _id: { $in: Array.from(patientIds) }, role: 'patient' }).select('-passwordHash');
 
-    res.json(patients);
+    const baseUrl = 'https://mindease-production-ed22.up.railway.app';
+    const patientsWithFullImage = patients.map(p => {
+      const user = p.toObject();
+      if (user.profileImage) {
+        user.profileImage = `${baseUrl}${user.profileImage.startsWith('/') ? '' : '/'}${user.profileImage}`;
+      }
+      return user;
+    });
+
+    res.json(patientsWithFullImage);
   } catch (error) {
     console.error('Error in getMyPatients:', error);
     res.status(500).json({ message: 'Server error' });
