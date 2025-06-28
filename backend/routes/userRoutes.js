@@ -27,12 +27,20 @@ router.get('/my-patients', protect, getMyPatients);
     const user = await User.findById(req.user.id).select('-passwordHash');
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    res.json(user);
+    const baseUrl = 'https://mindease-production-ed22.up.railway.app';
+    const userObj = user.toObject();
+
+    if (userObj.profileImage) {
+      userObj.profileImage = `${baseUrl}${userObj.profileImage.startsWith('/') ? '' : '/'}${userObj.profileImage}`;
+    }
+
+    res.json(userObj);
   } catch (err) {
     console.error('Error in /me:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
  router.put('/me', protect, async (req, res) => {
   try {
