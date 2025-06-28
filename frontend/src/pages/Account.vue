@@ -133,7 +133,11 @@ export default {
         : `https://mindease-production-ed22.up.railway.app${path}`
     }
 
-    onMounted(loadUser)
+    onMounted(async () => {
+  await loadUser()
+  console.log('Loaded profile image:', form.value.profileImage)
+})
+
 
     return {
       form,
