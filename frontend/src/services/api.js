@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://mindease-production.up.railway.app',
+  baseURL: 'https://mindease-production-ed22.up.railway.app',
 });
 
 API.interceptors.request.use(config => {
