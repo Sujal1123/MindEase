@@ -7,10 +7,10 @@
       <img
         v-if="form.profileImage"
         :src="getImageUrl(form.profileImage)"
+        @error="e => e.target.src = '/default-avatar.png'"
         alt="Profile"
         class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
       />
-      
     </div>
 
     <!-- Account Update Form -->
@@ -115,21 +115,22 @@ export default {
     }
 
     const deleteAccount = async () => {
-  if (!confirm('Are you sure? This action cannot be undone.')) return
-  try {
-    await API.delete('/api/users/me')
-    localStorage.removeItem('user')
-    router.push('/login')
-    location.reload()
-  } catch (err) {
-    console.error('Error deleting account:', err)
-    alert('Failed to delete account.')
-  }
-}
-
+      if (!confirm('Are you sure? This action cannot be undone.')) return
+      try {
+        await API.delete('/api/users/me')
+        localStorage.removeItem('user')
+        router.push('/login')
+        location.reload()
+      } catch (err) {
+        console.error('Error deleting account:', err)
+        alert('Failed to delete account.')
+      }
+    }
 
     const getImageUrl = (path) => {
-      return path.startsWith('http') ? path : `http://localhost:5000${path}`
+      return path?.startsWith('http')
+        ? path
+        : `https://mindease-production-ed22.up.railway.app${path}`
     }
 
     onMounted(loadUser)
