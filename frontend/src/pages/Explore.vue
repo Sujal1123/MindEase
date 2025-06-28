@@ -43,6 +43,8 @@
 
   <!-- Info -->
   <div class="p-4">
+    <p>{{ psychiatrist.profileImage }}</p>
+
     <h3 class="text-lg font-semibold text-gray-800">{{ psychiatrist.name }}</h3>
     <p class="text-sm text-gray-600">{{ psychiatrist.email }}</p>
     <p class="mt-2 text-sm text-gray-700">
