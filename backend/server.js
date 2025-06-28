@@ -29,7 +29,12 @@ connectDB().then(() => {
   chatSocket(io);
 });
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://mind-ease-zeta.vercel.app',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
