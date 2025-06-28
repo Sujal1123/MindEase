@@ -22,12 +22,15 @@
 >
   <!-- Profile Image -->
   <div class="h-52 w-full overflow-hidden">
-    <img
-  v-if="psychiatrist.profileImage"
+   <img
+  v-if="psychiatrist.profileImage && imageReady"
   :src="`https://mindease-production-ed22.up.railway.app/uploads/${psychiatrist.profileImage}`"
+  @load="imageReady = true"
+  @error="imageReady = false"
   alt="Profile Image"
   class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
+
 
     <img
   v-else
@@ -71,6 +74,8 @@ export default {
     const searchQuery = ref('')
     const userStore = useUserStore()
     const { user } = storeToRefs(userStore)
+    const imageReady = ref(true)
+
 
     onMounted(async () => {
       await userStore.loadUser()
