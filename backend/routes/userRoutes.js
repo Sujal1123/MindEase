@@ -42,6 +42,7 @@ router.get('/my-patients', protect, getMyPatients);
 });
 
 
+
  router.put('/me', protect, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
