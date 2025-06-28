@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('https://mindease.railway.internal');
+const socket = io('https://mindease-production.up.railway.app');
 
 socket.on('connect', () => {
   console.log('Socket connected to server:', socket.id);
