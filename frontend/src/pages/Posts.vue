@@ -11,14 +11,13 @@
       <input v-model="title" placeholder="Title" class="w-full border px-4 py-2 rounded" />
       <textarea v-model="content" placeholder="Write something helpful..." class="w-full border px-4 py-2 rounded" rows="5" />
 
-      <!-- 🌟 Styled Image Upload -->
+      <!-- Image Upload -->
       <div>
         <label class="block font-medium mb-1">Attach an image (optional)</label>
         <label
           class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-indigo-300 rounded-lg cursor-pointer hover:border-indigo-500 transition duration-200 text-indigo-600 bg-indigo-50 hover:bg-indigo-100"
         >
-          <svg class="w-10 h-10 mb-2 text-indigo-400" fill="none" stroke="currentColor" stroke-width="1.5"
-            viewBox="0 0 24 24">
+          <svg class="w-10 h-10 mb-2 text-indigo-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5m-4-4L12 4m0 0L8 8m4-4v12" />
           </svg>
@@ -32,7 +31,7 @@
 
     <!-- Show Posts -->
     <div v-for="post in posts" :key="post._id" class="relative bg-white shadow-md rounded-lg p-6 mb-6">
-      <!-- Delete Button -->
+      <!-- Delete -->
       <button
         v-if="user?.role === 'psychiatrist' && post.author && user._id === post.author._id"
         @click="deletePost(post._id)"
@@ -46,12 +45,13 @@
         by {{ post.author?.name || 'Anonymous' }} • {{ new Date(post.createdAt).toLocaleDateString() }}
       </p>
 
-      <!-- Post Image with Modal Trigger -->
+      <!-- Post Image -->
       <img
         v-if="post.image"
-        :src="`http://localhost:5000${post.image}`"
+        :src="getPostImageUrl(post.image)"
+        @error="(e) => e.target.src = '/default-post.jpg'"
         class="w-full h-64 object-cover rounded mb-3 cursor-pointer hover:opacity-90 transition"
-        @click="openImageModal(`http://localhost:5000${post.image}`)"
+        @click="openImageModal(getPostImageUrl(post.image))"
       />
 
       <p class="text-gray-700 whitespace-pre-line mb-4">{{ post.content }}</p>
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <!-- 🔍 Image Modal -->
+    <!-- Image Modal -->
     <div
       v-if="showImageModal"
       class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
@@ -216,6 +216,12 @@ export default {
       showImageModal.value = false;
     };
 
+    const getPostImageUrl = (path) => {
+      if (!path) return null;
+      if (path.startsWith('http')) return path;
+      return `https://mindease-production-ed22.up.railway.app${path}`;
+    };
+
     onMounted(() => {
       fetchPosts();
     });
@@ -236,6 +242,7 @@ export default {
       showImageModal,
       openImageModal,
       closeImageModal,
+      getPostImageUrl,
     };
   },
 };
