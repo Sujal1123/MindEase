@@ -14,11 +14,23 @@ exports.getPsychiatrists = async (req, res) => {
 
   try {
     const psychiatrists = await User.find(filter).select('-passwordHash');
-    res.json(psychiatrists);
+
+    const baseUrl = 'https://mindease-production-ed22.up.railway.app';
+
+    const psychiatristsWithFullImage = psychiatrists.map(p => {
+      const user = p.toObject();
+      if (user.profileImage) {
+        user.profileImage = `${baseUrl}${user.profileImage.startsWith('/') ? '' : '/'}${user.profileImage}`;
+      }
+      return user;
+    });
+
+    res.json(psychiatristsWithFullImage);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.getMyPatients = async (req, res) => {
   try {
