@@ -9,8 +9,13 @@ const app = createApp(App)
 const pinia = createPinia()
 app.use(pinia)
 
-const userStore = useUserStore()
-await userStore.loadUser()
+const init = async () => {
+  const userStore = useUserStore()
+  await userStore.loadUser()
 
-app.use(router)
-app.mount('#app')
+  app.use(router)
+  app.mount('#app')
+}
+
+init()
+
