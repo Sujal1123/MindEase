@@ -23,7 +23,7 @@
   <!-- Profile Image -->
   <div class="h-52 w-full overflow-hidden">
    <img
-  v-if="psychiatrist.profileImage && imageReady" src="`https://mindease-production-ed22.up.railway.app/uploads/${psychiatrist.profileImage}`"
+  v-if="psychiatrist.profileImage && imageReady" :src="getImageUrl(psychiatrist.profileImage)"
   @load="imageReady = true"
   @error="imageReady = false"
   alt="Profile Image"
@@ -89,6 +89,10 @@ export default {
       }
     })
 
+    const getImageUrl = (path) =>
+  path ? `https://mindease-production-ed22.up.railway.app/uploads/${path}` : '/default-avatar.png';
+
+
     const filteredPsychiatrists = computed(() => {
       return psychiatrists.value.filter(p =>
         p.name.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -99,7 +103,8 @@ export default {
       psychiatrists,
       searchQuery,
       filteredPsychiatrists,
-      user
+      user,
+      getImageUrl
     }
   }
 }
