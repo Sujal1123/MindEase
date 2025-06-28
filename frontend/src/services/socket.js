@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('https://mindease-production.up.railway.app', {
+const socket = io('https://mindease-production-ed22.up.railway.app', {
   transports: ['websocket'], // avoid long-polling fallback
   withCredentials: true, // important for CORS handling
 });
