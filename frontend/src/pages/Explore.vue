@@ -24,7 +24,7 @@
   <div class="h-52 w-full overflow-hidden">
    <img
   v-if="psychiatrist.profileImage && imageReady"
-  :src="`:src="`https://mindease-production-ed22.up.railway.app${psychiatrist.profileImage}`"
+  :src="`:src="`https://mindease-production-ed22.up.railway.app/${psychiatrist.profileImage}`"
 `"
   @load="imageReady = true"
   @error="imageReady = false"
