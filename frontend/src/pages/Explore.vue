@@ -24,7 +24,7 @@
   <div class="h-52 w-full overflow-hidden">
     <img
   v-if="psychiatrist.profileImage"
-  :src="`https://mindease-production-ed22.up.railway.app/${psychiatrist.profileImage}`"
+  :src="`https://mindease-production-ed22.up.railway.app/uploads/${psychiatrist.profileImage}`"
   alt="Profile Image"
   class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
