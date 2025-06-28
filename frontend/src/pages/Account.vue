@@ -5,10 +5,11 @@
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
       <img
-  :src="form.profileImage ? form.profileImage : '/default-avatar.png'"
+  :src="getImageUrl(form.profileImage)"
   alt="Profile"
   class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
 />
+
 
     </div>
 
@@ -127,10 +128,12 @@ export default {
     }
 
     const getImageUrl = (path) => {
-      return path?.startsWith('http')
-        ? path
-        : `https://mindease-production-ed22.up.railway.app${path}`
-    }
+  if (!path) return '/default-avatar.png'
+  return path.startsWith('http')
+    ? path
+    : `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`
+}
+
 
     onMounted(async () => {
   await loadUser()
