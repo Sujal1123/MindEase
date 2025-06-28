@@ -23,18 +23,8 @@
   <!-- Profile Image -->
   <div class="h-52 w-full overflow-hidden">
    <img
-  v-if="psychiatrist.profileImage && imageReady" :src="psychiatrist.profileImage"
-  @load="imageReady = true"
-  @error="imageReady = false"
+  :src="getImageUrl(psychiatrist.profileImage)"
   alt="Profile Image"
-  class="w-full h-48 object-cover object-top rounded-md mb-3"
-/>
-
-
-    <img
-  v-else
-  src="/default-avatar.png"
-  alt="Default Avatar"
   class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
 
@@ -89,8 +79,11 @@ export default {
       }
     })
 
-    const getImageUrl = (path) =>
-  path ? `https://mindease-production-ed22.up.railway.app/uploads/${path}` : '/default-avatar.png';
+   const getImageUrl = (path) => {
+  if (!path) return '/default-avatar.png';
+  if (path.startsWith('http')) return path; // already a full URL
+  return `https://mindease-production-ed22.up.railway.app${path}`;
+};
 
 
     const filteredPsychiatrists = computed(() => {
