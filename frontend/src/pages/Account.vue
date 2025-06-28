@@ -5,12 +5,11 @@
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
       <img
-        v-if="form.profileImage"
-        :src="form.profileImage"
-        @error="e => e.target.src = '/default-avatar.png'"
-        alt="Profile"
-        class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
-      />
+  :src="form.profileImage ? form.profileImage : '/default-avatar.png'"
+  alt="Profile"
+  class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
+/>
+
     </div>
 
     <!-- Account Update Form -->
