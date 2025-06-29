@@ -37,10 +37,10 @@ export default {
 
     console.log('Login successful:', res.data);
 
-    const userWithToken = { ...res.data.user, token: res.data.token };
-
     localStorage.setItem('token', res.data.token);
 
+    // Optional: Store the full user object if needed elsewhere
+    const userWithToken = { ...res.data.user, token: res.data.token };
     userStore.setUser(userWithToken);
     localStorage.setItem('user', JSON.stringify(userWithToken));
 
