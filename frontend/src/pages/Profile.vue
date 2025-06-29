@@ -5,11 +5,12 @@
       <h2 class="text-3xl font-bold text-blue-700">{{ psychiatrist.name }}</h2>
 
       <img
-        v-if="psychiatrist.profileImage"
-        :src="`http://localhost:5000${psychiatrist.profileImage}`"
-        alt="Profile Image"
-        class="w-32 h-32 rounded-full object-cover border shadow"
-      />
+  v-if="psychiatrist.profileImage"
+  :src="getImageUrl(psychiatrist.profileImage)"
+  alt="Profile Image"
+  class="w-32 h-32 rounded-full object-cover border shadow"
+/>
+
 
       <p class="text-gray-700"><strong>Email:</strong> {{ psychiatrist.email }}</p>
 
@@ -102,6 +103,13 @@ export default {
       const res = await API.get(`/api/reviews/${route.params.id}`);
       reviews.value = res.data;
     };
+    
+    const getImageUrl = (path) => {
+  if (!path) return '/default-avatar.png';
+  if (path.startsWith('http')) return path;
+  return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
+};
+
 
     const submitReview = async () => {
       const token = localStorage.getItem('token');
@@ -152,7 +160,8 @@ export default {
       newRating,
       newComment,
       submitReview,
-      averageRating
+      averageRating,
+      getImageUrl
     };
   }
 };
