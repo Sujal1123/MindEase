@@ -33,20 +33,24 @@ export default {
     const res = await API.post('/api/auth/login', {
       email: email.value,
       password: password.value
-    })
+    });
 
-    console.log('Login successful:', res.data)
+    console.log('Login successful:', res.data);
 
-    const userWithToken = { ...res.data.user, token: res.data.token }
-    userStore.setUser(userWithToken)
-    localStorage.setItem('user', JSON.stringify(userWithToken))
+    const userWithToken = { ...res.data.user, token: res.data.token };
 
-    router.push('/')
+    localStorage.setItem('token', res.data.token);
+
+    userStore.setUser(userWithToken);
+    localStorage.setItem('user', JSON.stringify(userWithToken));
+
+    router.push('/');
   } catch (err) {
-    console.error('Login error:', err.response?.data || err.message) 
-    alert('Invalid email or password')
+    console.error('Login error:', err.response?.data || err.message);
+    alert('Invalid email or password');
   }
-}
+};
+
 
     return { email, password, login }
   }
