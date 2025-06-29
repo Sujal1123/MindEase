@@ -5,10 +5,11 @@
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
       <img
-  :src="getImageUrl(form.profileImage)"
+  :src="form.profileImage"
   alt="Profile"
   class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
 />
+
 
 
     </div>
