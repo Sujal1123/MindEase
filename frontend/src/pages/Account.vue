@@ -74,11 +74,7 @@ export default {
         form.value.name = res.data.name;
 form.value.email = res.data.email;
 
-const rawPath = res.data.profileImage || '';
-form.value.profileImage = rawPath.startsWith('http') 
-  ? rawPath 
-  : `/uploads/${rawPath.split('/').pop()}`;
-
+form.value.profileImage = res.data.profileImage || '';
 
       } catch (err) {
         console.error('Failed to fetch user info:', err)
@@ -134,7 +130,9 @@ form.value.profileImage = rawPath.startsWith('http')
 
     const getImageUrl = (path) => {
   if (!path) return '/default-avatar.png';
-  return path.startsWith('http') ? path : `https://mindease-production-ed22.up.railway.app${path}`;
+  return path.startsWith('http')
+    ? path
+    : `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
 };
 
 
