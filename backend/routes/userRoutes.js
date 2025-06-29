@@ -30,9 +30,10 @@ router.get('/my-patients', protect, getMyPatients);
     const baseUrl = 'https://mindease-production-ed22.up.railway.app';
     const userObj = user.toObject();
 
-    if (userObj.profileImage) {
-      userObj.profileImage = `${baseUrl}${userObj.profileImage.startsWith('/') ? '' : '/'}${userObj.profileImage}`;
-    }
+    // ✅ Always return a valid profileImage URL
+    userObj.profileImage = userObj.profileImage
+      ? `${baseUrl}${userObj.profileImage.startsWith('/') ? '' : '/'}${userObj.profileImage}`
+      : `${baseUrl}/default-avatar.png`; // fallback image
 
     res.json(userObj);
   } catch (err) {
@@ -40,6 +41,7 @@ router.get('/my-patients', protect, getMyPatients);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 
