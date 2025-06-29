@@ -72,10 +72,13 @@ export default {
       try {
         const res = await API.get('/api/users/me')
         form.value = {
-          name: res.data.name,
-          email: res.data.email,
-          profileImage: res.data.profileImage || ''
-        }
+  name: res.data.name,
+  email: res.data.email,
+  profileImage: res.data.profileImage?.startsWith('http') 
+    ? res.data.profileImage 
+    : `/uploads/${res.data.profileImage?.split('/').pop()}` || ''
+};
+
       } catch (err) {
         console.error('Failed to fetch user info:', err)
       }
@@ -131,12 +134,14 @@ export default {
     const getImageUrl = (path) => {
   if (!path) return '/default-avatar.png';
 
-  // If already full URL, return as-is
-  if (path.startsWith('http')) return path;
+  // Prevent double base URL
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
 
-  // Only append base if it's a relative path
   return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
 };
+
 
 
 
