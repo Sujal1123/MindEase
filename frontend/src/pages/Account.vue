@@ -128,12 +128,11 @@ export default {
       }
     }
 
-    const getImageUrl = (path) => {
-  if (!path) return '/default-avatar.png'
-  return path.startsWith('http')
-    ? path
-    : `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`
-}
+     const getImageUrl = (path) => {
+  if (!path) return '/default-avatar.png';
+  if (path.startsWith('http')) return path; // already a full URL
+  return `https://mindease-production-ed22.up.railway.app${path}`;
+};
 
 
     onMounted(async () => {
