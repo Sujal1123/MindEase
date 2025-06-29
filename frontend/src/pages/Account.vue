@@ -4,10 +4,10 @@
 
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
-      <img
-  :src="form.profileImage"
-  alt="Profile"
-  class="w-32 h-32 rounded-full object-cover mx-auto border border-gray-300"
+      img
+  :src="getImageUrl(form.profileImage)"
+  alt="Profile Image"
+  class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
 
 
