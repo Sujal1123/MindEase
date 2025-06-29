@@ -138,10 +138,11 @@ form.value.profileImage = rawPath.startsWith('http')
 };
 
 
-    onMounted(async () => {
-  await loadUser()
-  console.log('Loaded profile image:', form.value.profileImage)
-})
+   onMounted(async () => {
+  await loadUser();
+  console.log('Resolved profile image URL:', getImageUrl(form.value.profileImage));
+});
+
 
 
     return {
