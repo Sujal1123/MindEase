@@ -71,13 +71,14 @@ export default {
     const loadUser = async () => {
       try {
         const res = await API.get('/api/users/me')
-        form.value = {
-  name: res.data.name,
-  email: res.data.email,
-  profileImage: res.data.profileImage?.startsWith('http') 
-    ? res.data.profileImage 
-    : `/uploads/${res.data.profileImage?.split('/').pop()}` || ''
-};
+        form.value.name = res.data.name;
+form.value.email = res.data.email;
+
+const rawPath = res.data.profileImage || '';
+form.value.profileImage = rawPath.startsWith('http') 
+  ? rawPath 
+  : `/uploads/${rawPath.split('/').pop()}`;
+
 
       } catch (err) {
         console.error('Failed to fetch user info:', err)
