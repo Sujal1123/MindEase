@@ -130,9 +130,14 @@ export default {
 
     const getImageUrl = (path) => {
   if (!path) return '/default-avatar.png';
+
+  // If already full URL, return as-is
   if (path.startsWith('http')) return path;
+
+  // Only append base if it's a relative path
   return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
 };
+
 
 
 
