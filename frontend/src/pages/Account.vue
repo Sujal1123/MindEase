@@ -5,7 +5,7 @@
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
       <img
-  :src="getImageUrl(psychiatrist.profileImage)"
+  :src="getImageUrl(form.profileImage)"
   alt="Profile Image"
   class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
@@ -128,11 +128,12 @@ export default {
       }
     }
 
-     const getImageUrl = (path) => {
+    const getImageUrl = (path) => {
   if (!path) return '/default-avatar.png';
-  if (path.startsWith('http')) return path; // already a full URL
-  return `https://mindease-production-ed22.up.railway.app${path}`;
+  if (path.startsWith('http')) return path;
+  return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
 };
+
 
 
     onMounted(async () => {
