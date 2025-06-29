@@ -134,11 +134,9 @@ form.value.profileImage = rawPath.startsWith('http')
 
     const getImageUrl = (path) => {
   if (!path) return '/default-avatar.png';
+  return path.startsWith('http') ? path : `https://mindease-production-ed22.up.railway.app${path}`;
+};
 
-  // Prevent double base URL
-  if (path.startsWith('http://') || path.startsWith('https://')) {
-    return path;
-  }
 
   return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
 };
