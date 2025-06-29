@@ -138,13 +138,6 @@ form.value.profileImage = rawPath.startsWith('http')
 };
 
 
-  return `https://mindease-production-ed22.up.railway.app${path.startsWith('/') ? '' : '/'}${path}`;
-};
-
-
-
-
-
     onMounted(async () => {
   await loadUser()
   console.log('Loaded profile image:', form.value.profileImage)
