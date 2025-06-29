@@ -4,8 +4,8 @@
 
     <!-- Profile Image Preview -->
     <div class="mb-6 text-center">
-      img
-  :src="getImageUrl(form.profileImage)"
+      <img
+  :src="getImageUrl(psychiatrist.profileImage)"
   alt="Profile Image"
   class="w-full h-48 object-cover object-top rounded-md mb-3"
 />
