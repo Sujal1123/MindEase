@@ -30,11 +30,6 @@ router.get('/my-patients', protect, getMyPatients);
     const baseUrl = 'https://mindease-production-ed22.up.railway.app';
     const userObj = user.toObject();
 
-    // ✅ Always return a valid profileImage URL
-    userObj.profileImage = userObj.profileImage
-      ? `${baseUrl}${userObj.profileImage.startsWith('/') ? '' : '/'}${userObj.profileImage}`
-      : `${baseUrl}/default-avatar.png`; // fallback image
-
     res.json(userObj);
   } catch (err) {
     console.error('Error in /me:', err);
